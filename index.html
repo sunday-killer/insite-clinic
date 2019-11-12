@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Главная</title>
+  <link rel="stylesheet" href="dist/css/materialize.min.css">
+  <link rel="stylesheet" href="dist/css/all.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-wrapper">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a>Главная</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container" id="app">
+  <form class="form" @submit.prevent="sendForm">
+      <div class="row">
+        <div class="input-field col s6">
+          <input
+              placeholder="Имя"
+              id="name"
+              type="text"
+              class="validate"
+              v-model="$v.name.$model"
+              :class="status($v.name)"
+          />
+          <label for="name">Имя</label>
+          <small class="helper-text invalid" v-if="!$v.name.required && $v.name.$dirty">Поле Имя обязательно для заполнения</small>
+        </div>
+        <div class="input-field col s6">
+          <input
+              placeholder="Email"
+              id="email"
+              type="text"
+              class="validate"
+              v-model="$v.email.$model"
+              :class="status($v.email)"
+          />
+          <label for="email">Email</label>
+          <small class="helper-text invalid" v-if="!$v.email.required && $v.email.$dirty">Поле Email обязательно для заполнения</small>
+          <small class="helper-text invalid" v-else-if="!$v.email.email && $v.email.$dirty">Введите email в формате test@mail.com</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+              placeholder="88432505142"
+              id="phone"
+              type="text"
+              class="validate"
+              v-model="$v.phone.$model"
+              :class="status($v.phone)"
+          />
+          <label for="phone">Номер телефона</label>
+          <small class="helper-text invalid" v-if="!$v.phone.required && $v.phone.$dirty">Поле Телефон обязательно для заполнения</small>
+          <small class="helper-text invalid" v-else-if="(!$v.phone.minLength || !$v.phone.maxLength) && $v.phone.$dirty">Формат телефона: 11 цифр от 0 до 9. Например: 89173929021</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Комментарий" id="comment" type="text" class="validate" v-model="comment" />
+          <label for="comment">Комментарий</label>
+        </div>
+      </div>
+      <div class="row">
+        <button
+            type="submit"
+            name="send_form"
+            class="waves-effect waves-light btn"
+            :disabled="$v.name.$error || $v.email.$error || $v.phone.$error"
+        >Отправить</button>
+      </div>
+    </form>
+  <p>Ответ:</p>
+  <pre class="response">{{response}}</pre>
+</main>
+
+<script src="dist/js/materialize.min.js"></script>
+<script src="dist/js/vue.min.js"></script>
+<script src="dist/js/vuelidate.min.js"></script>
+<script src="dist/js/validators.min.js"></script>
+<script src="dist/js/jquery.min.js"></script>
+<script src="dist/js/main.js"></script>
+
+</body>
+</html>
